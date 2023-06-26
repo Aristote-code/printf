@@ -14,6 +14,7 @@ int _strlen(const char *str)
 	while (str[i] != '\0')
 		i++;
 	return (i);
+}
 /**
   * _printf - Prints formatted output
   * @format: Character string to output
@@ -35,7 +36,7 @@ int _printf(const char *format, ...)
 
 	for (i = 0; i < fmt_len; i++)
 	{
-		while (format[i] == '%')
+		if (format[i] == '%')
 		{
 			i++;
 			if (format[i] == 'c')
@@ -55,18 +56,26 @@ int _printf(const char *format, ...)
 					j++;
 					count++;
 				}
-				else if (format[i] == '%')
-				{
-                                printchar('%');
-                                count++;
-                        }
-                        else
-                        {
+				j == 0;
+			}
+			else if (format[i] == '%')
+			{
+				printchar('%');
+				count++;
+			}
+			else
+			{
+				printchar('%');
 				printchar(format[i]);
-                                count++;
-                        }
-                }
-        }
-        va_end(args);
-        return (count);
+				count+= 2;
+			}
+		}
+		else
+		{
+			printchar(format[i]);
+			count++;
+		}
+	}
+	va_end(args);
+	return (count);
 }
