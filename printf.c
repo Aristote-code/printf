@@ -53,8 +53,7 @@ int printfmt(char identifier, va_list args)
 		count += printstr(va_arg(args, char *));
 	else if (identifier == '%')
 		count += printchar('%');
-	else
-		count += write(1, &identifier, 1);
+
 	return (count);
 }
 
@@ -64,7 +63,6 @@ int printfmt(char identifier, va_list args)
   *
   * Return: Number of characters printed
   */
-
 int _printf(const char *format, ...)
 {
 	int count = 0;
@@ -77,12 +75,20 @@ int _printf(const char *format, ...)
 	{
 		if (*format == '%')
 		{
-			count += printfmt(*(format + 1), args);
-			format += 2;
+			if (*(format + 1) == '%')
+			{
+				count += printchar('%');
+				format += 2;
+			}
+			else
+			{
+				count += printfmt(*(format + 1), args);
+				format += 2;
+			}
 		}
 		else
 		{
-			count += write(1, format, 1);
+			count += printchar(*format);
 			format++;
 		}
 	}
