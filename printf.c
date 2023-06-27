@@ -78,14 +78,14 @@ int _printf(const char *format, ...)
 		if (*format == '%')
 		{
 			count += printfmt(*(format + 1), args);
-			format++;
+			format += 2;
 		}
 		else
 		{
 			count += write(1, format, 1);
+			format++;
 		}
-
-		format++;
 	}
 	va_end(args);
-	return (count);}
+	return (count);
+}
