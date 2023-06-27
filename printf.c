@@ -74,9 +74,15 @@ int _printf(const char *format, ...)
 	while (*format != '\0')
 	{
 		if (*format == '%')
-			count += printfmt(*format++, args);
+		{
+			count += printfmt(*(format + 1), args);
+			format++;
+		}
 		else
+		{
 			count += write(1, format, 1);
+		}
+
 		format++;
 	}
 	va_end(args);
