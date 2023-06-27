@@ -51,6 +51,8 @@ int printfmt(char identifier, va_list args)
 		count += printchar(va_arg(args, int));
 	else if (identifier == 's')
 		count += printstr(va_arg(args, char *));
+	else if (identifier == '%')
+		count += printchar('%');
 	else
 		count += write(1, &identifier, 1);
 	return (count);
