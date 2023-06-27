@@ -26,6 +26,9 @@ int printstr(char *s)
 {
 	int count = 0;
 
+	if (s == NULL)
+		s = " ";
+
 	while (*s != '\0')
 	{
 		printchar((int) *s);
