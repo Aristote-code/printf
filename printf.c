@@ -21,7 +21,6 @@ int printchar(char s)
   *
   * Return: 1 on success, -1 on error.
   */
-
 int printstr(char *s)
 {
 	int count = 0;
@@ -56,7 +55,8 @@ int printfmt(char identifier, va_list args)
 		count += printstr(va_arg(args, char *));
 	else if (identifier == '%')
 		count += printchar('%');
-
+	else
+		count += write(1, &identifier, 1);
 	return (count);
 }
 
